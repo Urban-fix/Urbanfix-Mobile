@@ -13,12 +13,10 @@ npm install
 npx expo start            # escanea el QR con Expo Go o pulsa a / i
 ```
 
-Por defecto la app usa el backend desplegado:
-`https://urbanfix-backend-azxr7d-a112d1-100-52-237-145.sslip.io`
+La URL del backend se configura en **un solo lugar**: `app.json` → `expo.extra.apiUrl`.
 
-Para usar otro backend, copia `.env.example` a `.env` y cambia `EXPO_PUBLIC_API_URL`.
-> Si es un backend local, en el celular `localhost` es el propio celular: usa la IP de tu PC en la red
-> (o `10.0.2.2` en el emulador de Android). El backend debe escuchar en `0.0.0.0`.
+Para desarrollo con un backend local, copia `.env.example` a `.env` y cambia `EXPO_PUBLIC_API_URL`
+(en el celular `localhost` es el propio celular: usa la IP de tu PC en la red, o `10.0.2.2` en el emulador de Android).
 
 ## Pantallas
 
@@ -54,8 +52,43 @@ src/
   theme/tokens.ts      colores/tipografía copiados de src/index.css del web
 ```
 
+## Generar el APK (Android)
+
+Se compila en la nube con [EAS Build](https://docs.expo.dev/build/introduction/) (cuenta gratuita de Expo).
+
+1. Instala la herramienta e inicia sesión:
+   ```bash
+   npm install -g eas-cli
+   eas login
+   ```
+2. Vincula el proyecto con tu cuenta de Expo (solo la primera vez; agrega el `projectId` a `app.json`):
+   ```bash
+   eas init
+   ```
+3. Configura la API key de Google Maps (sin ella el mapa sale en blanco en el APK):
+   - En [Google Cloud Console](https://console.cloud.google.com/) habilita **Maps SDK for Android** y crea una API key.
+   - Restríngela a Android con el paquete `pe.urbanfix.app` y la huella SHA-1 que muestra `eas credentials`.
+   - Guárdala en EAS (no va en el repo):
+     ```bash
+     eas env:create --name GOOGLE_MAPS_API_KEY --value TU_KEY --environment preview --environment production --visibility sensitive
+     ```
+4. Genera el APK:
+   ```bash
+   eas build --platform android --profile preview
+   ```
+   Al terminar, EAS da un link y un QR para descargar e instalar el APK en cualquier Android.
+
+Perfiles en `eas.json`:
+- `preview`: APK para instalar directo (pruebas y presentación).
+- `production`: AAB para subir a Google Play (incrementa la versión automáticamente).
+
+### Si cambia la URL del backend
+
+La URL queda guardada dentro del APK. Si el servidor cambia de dirección, hay que actualizar
+`expo.extra.apiUrl` en `app.json` y volver a generar el APK. Para evitarlo, el backend debe tener una
+dirección fija (Elastic IP o dominio propio).
+
 ## Notas
 
-- **Google Maps en Android (build propio):** en Expo Go funciona tal cual. Para un APK con
-  `eas build` hay que añadir una API key de Google Maps en `app.json` (`android.config.googleMaps.apiKey`).
+
 - En web el mapa se muestra como un placeholder (`Map.web.tsx`); la app está pensada para iOS/Android.

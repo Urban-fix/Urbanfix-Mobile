@@ -3,18 +3,14 @@ import { colors } from '../theme/tokens';
 import type { EstadoReporte } from '../types/reporte.types';
 
 /**
- * URL del backend. Prioridad:
- * 1. EXPO_PUBLIC_API_URL (archivo .env)
- * 2. expo.extra.apiUrl en app.json
+ * URL del backend. Se cambia en UN solo lugar: app.json → expo.extra.apiUrl.
+ * Esa URL queda guardada dentro del APK al compilar.
  *
- * Ojo: en un celular físico "localhost" es el propio celular.
- * Usa la IP de tu PC en la red (ej. http://192.168.1.20:8080)
- * o 10.0.2.2:8080 en el emulador de Android.
+ * Solo para desarrollo: EXPO_PUBLIC_API_URL en un archivo .env la reemplaza
+ * (p. ej. para usar un backend local con la IP de tu PC).
  */
 export const API_URL: string =
-  process.env.EXPO_PUBLIC_API_URL ??
-  (Constants.expoConfig?.extra?.apiUrl as string | undefined) ??
-  'https://urbanfix-backend-azxr7d-a112d1-100-52-237-145.sslip.io';
+  process.env.EXPO_PUBLIC_API_URL || ((Constants.expoConfig?.extra?.apiUrl as string | undefined) ?? '');
 
 export const ESTADOS_REPORTE = {
   PENDIENTE: 'PENDIENTE',
