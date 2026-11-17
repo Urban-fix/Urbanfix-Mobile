@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from './AppText';
 import * as Location from 'expo-location';
 import { alpha, colors, fonts, radius } from '../theme/tokens';
 import { DEFAULT_CENTER } from '../utils/constants';

@@ -1,13 +1,14 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Text } from '../../../components/AppText';
 import { LeafletMap } from '../../../components/map/LeafletMap';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Image } from 'expo-image';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Chip, ErrorBanner, Heading, StatusBadge } from '../../../components/ui';
 import { useReportesPublic } from '../../../hooks/useData';
-import { DEFAULT_CENTER, ESTADO_COLOR, ESTADOS_REPORTE, FALLBACK_IMAGE, estadoLabel } from '../../../utils/constants';
+import { DEFAULT_CENTER, ESTADO_COLOR, ESTADOS_REPORTE, estadoLabel } from '../../../utils/constants';
+import { ReporteImage } from '../../../components/ReporteImage';
 import { alpha, colors, fonts, radius, shadow, spacing } from '../../../theme/tokens';
 import type { ReportePublicDTO } from '../../../types/reporte.types';
 
@@ -22,7 +23,7 @@ export default function MapaScreen() {
     () => data.filter((r) => Number.isFinite(r.latitud) && Number.isFinite(r.longitud) && (!estado || r.estadoActual === estado)),
     [data, estado],
   );
-  const markers = useMemo(() => reportes.map((r) => ({ id: r.id, lat: r.latitud, lng: r.longitud, color: ESTADO_COLOR[r.estadoActual] })), [reportes]);
+  const markers = useMemo(() => reportes.map((r) => ({ id: r.id, lat: r.latitud, lng: r.longitud, color: ESTADO_COLOR[r.estadoActual] ?? colors.textMuted })), [reportes]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
@@ -56,7 +57,7 @@ export default function MapaScreen() {
 
       {selected ? (
         <Pressable style={styles.popup} onPress={() => router.push(`/reportes/${selected.id}`)}>
-          <Image source={selected.fotoUrl || FALLBACK_IMAGE} style={styles.popupImg} contentFit="cover" />
+          <ReporteImage fotoUrl={selected.fotoUrl} style={styles.popupImg} compact />
           <View style={{ flex: 1, gap: 6 }}>
             <Text style={styles.popupTitle} numberOfLines={2}>
               {selected.titulo}

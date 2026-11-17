@@ -12,28 +12,37 @@ import type { EstadoReporte } from '../types/reporte.types';
 export const API_URL: string =
   process.env.EXPO_PUBLIC_API_URL || ((Constants.expoConfig?.extra?.apiUrl as string | undefined) ?? '');
 
+// Mismos nombres que el enum EstadoReporte del backend
 export const ESTADOS_REPORTE = {
-  PENDIENTE: 'PENDIENTE',
-  EN_PROGRESO: 'EN_PROGRESO',
+  REPORTADO: 'REPORTADO',
+  EN_PROCESO: 'EN_PROCESO',
   RESUELTO: 'RESUELTO',
   RECHAZADO: 'RECHAZADO',
 } as const;
 
 export const ESTADO_COLOR: Record<EstadoReporte, string> = {
-  PENDIENTE: colors.warning,
-  EN_PROGRESO: colors.info,
+  REPORTADO: colors.warning,
+  EN_PROCESO: colors.info,
   RESUELTO: colors.success,
   RECHAZADO: colors.error,
 };
 
 export const ESTADO_ICON: Record<EstadoReporte, 'alert-circle' | 'clock' | 'check-circle' | 'x-circle'> = {
-  PENDIENTE: 'alert-circle',
-  EN_PROGRESO: 'clock',
+  REPORTADO: 'alert-circle',
+  EN_PROCESO: 'clock',
   RESUELTO: 'check-circle',
   RECHAZADO: 'x-circle',
 };
 
-export const estadoLabel = (estado: string) => estado.replace('_', ' ');
+const ESTADO_LABEL: Record<string, string> = {
+  REPORTADO: 'Reportado',
+  EN_PROCESO: 'En proceso',
+  RESUELTO: 'Resuelto',
+  RECHAZADO: 'Rechazado',
+};
+
+/** Nombre legible del estado. Si el backend agrega uno nuevo, se muestra igual en vez de quedar vacío. */
+export const estadoLabel = (estado: string) => ESTADO_LABEL[estado] ?? (estado ?? '').replace(/_/g, ' ').toLowerCase();
 
 /** Imagen por defecto cuando el reporte no tiene foto (misma que usa el web). */
 export const FALLBACK_IMAGE =

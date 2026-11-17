@@ -18,9 +18,11 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.accent,
+        // La barra tiene alto fijo: con "texto grande" del sistema las etiquetas se cortaban
+        tabBarAllowFontScaling: false,
         tabBarInactiveTintColor: colors.textMuted,
         tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.line, borderTopWidth: 1, height: 64, paddingTop: 6 },
-        tabBarLabelStyle: { fontFamily: fonts.semibold, fontSize: 10.5, letterSpacing: 0.3, textTransform: 'uppercase' },
+        tabBarLabelStyle: { fontFamily: fonts.semibold, fontSize: 10, letterSpacing: 0, textTransform: 'uppercase' },
         sceneStyle: { backgroundColor: colors.bg },
       }}
     >

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Text } from '../../components/AppText';
 import { Link } from 'expo-router';
 import { AuthLayout } from '../../components/AuthLayout';
 import { GoogleButton } from '../../components/GoogleButton';

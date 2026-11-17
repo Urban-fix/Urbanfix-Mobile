@@ -5,8 +5,6 @@ import {
   Modal,
   Pressable,
   StyleSheet,
-  Text,
-  TextInput,
   View,
   type PressableProps,
   type StyleProp,
@@ -15,6 +13,7 @@ import {
   type TextStyle,
   type ViewStyle,
 } from 'react-native';
+import { Text, TextInput } from './AppText';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { alpha, colors, fonts, radius, shadow, spacing, toneColor, type Tone } from '../theme/tokens';
@@ -27,7 +26,7 @@ export type IconName = React.ComponentProps<typeof Feather>['name'];
 
 /** Títulos en Anton mayúsculas (equivale a `font-heading uppercase`). */
 export const Heading: React.FC<TextProps & { size?: number }> = ({ style, size = 22, ...p }) => (
-  <Text {...p} style={[{ fontFamily: fonts.heading, fontSize: size, color: colors.text, textTransform: 'uppercase', letterSpacing: -0.3, lineHeight: size * 1.15 }, style]} />
+  <Text {...p} style={[{ fontFamily: fonts.heading, fontSize: size, color: colors.text, textTransform: 'uppercase', letterSpacing: -0.3, lineHeight: Math.round(size * 1.25) }, style]} />
 );
 
 /** Kicker lima pequeño (equivale a `.auth-kicker` / `.hero-kicker`). */
@@ -334,7 +333,8 @@ export const LinkText: React.FC<TextProps> = ({ style, ...p }) => (
 
 const styles = StyleSheet.create({
   btn: {
-    height: 48,
+    minHeight: 48,
+    paddingVertical: 10,
     paddingHorizontal: spacing.xxl,
     borderRadius: radius,
     borderWidth: 1,
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  btnSm: { height: 40, paddingHorizontal: spacing.lg },
+  btnSm: { minHeight: 40, paddingVertical: 8, paddingHorizontal: spacing.lg },
   btnGlow: {
     shadowColor: colors.accent,
     shadowOpacity: 0.28,
@@ -350,11 +350,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
     elevation: 4,
   },
-  btnText: { fontFamily: fonts.semibold, fontSize: 15, letterSpacing: 0.4 },
+  btnText: { fontFamily: fonts.semibold, fontSize: 15, letterSpacing: 0.4, textAlign: 'center', flexShrink: 1 },
 
   label: { fontFamily: fonts.medium, fontSize: 14, color: colors.text, marginBottom: spacing.sm },
   inputWrap: {
-    height: 48,
+    minHeight: 48,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: spacing.lg,
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
 
   stat: { flexDirection: 'row', alignItems: 'flex-start', padding: spacing.xl },
   statLabel: { fontFamily: fonts.body, fontSize: 11, letterSpacing: 1.1, textTransform: 'uppercase', color: colors.textMuted, marginBottom: 8 },
-  statValue: { fontFamily: fonts.heading, fontSize: 32, lineHeight: 36 },
+  statValue: { fontFamily: fonts.heading, fontSize: 32, lineHeight: 40 },
 
   iconWell: {
     borderRadius: radius,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { Text } from './AppText';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { Feather } from '@expo/vector-icons';

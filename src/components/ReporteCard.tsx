@@ -1,14 +1,14 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'expo-image';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { Text } from './AppText';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { alpha, colors, fonts, radius, shadow, spacing } from '../theme/tokens';
-import { FALLBACK_IMAGE } from '../utils/constants';
 import { formatRelativeTime } from '../utils/formatters';
 import type { ReportePublicDTO, ReporteResponseDTO } from '../types/reporte.types';
 import { StatusBadge } from './ui';
+import { ReporteImage } from './ReporteImage';
 
 /** Tarjeta de reporte (`.auth-report-card`): foto con degradado + datos. */
 export const ReporteCard: React.FC<{ reporte: ReporteResponseDTO | ReportePublicDTO; compact?: boolean }> = ({ reporte, compact }) => {
@@ -21,7 +21,7 @@ export const ReporteCard: React.FC<{ reporte: ReporteResponseDTO | ReportePublic
       accessibilityLabel={reporte.titulo}
     >
       <View style={[styles.media, compact && { height: 130 }]}>
-        <Image source={reporte.fotoUrl || FALLBACK_IMAGE} style={StyleSheet.absoluteFill} contentFit="cover" transition={250} />
+        <ReporteImage fotoUrl={reporte.fotoUrl} style={StyleSheet.absoluteFill} />
         <LinearGradient colors={['transparent', 'rgba(0,0,0,0.4)']} locations={[0.45, 1]} style={StyleSheet.absoluteFill} />
       </View>
       <View style={{ padding: spacing.lg }}>

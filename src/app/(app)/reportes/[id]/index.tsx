@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Image } from 'expo-image';
+import { StyleSheet, View } from 'react-native';
+import { Text } from '../../../../components/AppText';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -11,7 +11,8 @@ import { useAuth } from '../../../../context/AuthContext';
 import { useAsync } from '../../../../hooks/useAsync';
 import { comentariosApi, confirmacionesApi, reportesApi } from '../../../../api/endpoints';
 import { errorMessage } from '../../../../api/client';
-import { ESTADOS_REPORTE, FALLBACK_IMAGE, estadoLabel } from '../../../../utils/constants';
+import { ESTADOS_REPORTE, estadoLabel } from '../../../../utils/constants';
+import { ReporteImage } from '../../../../components/ReporteImage';
 import { formatDateTime } from '../../../../utils/formatters';
 import { colors, fonts, radius, spacing } from '../../../../theme/tokens';
 import type { ReporteDetailDTO } from '../../../../types/reporte.types';
@@ -106,7 +107,7 @@ export default function ReporteDetailScreen() {
       <View style={{ gap: spacing.lg }}>
         <Card padded={false} style={{ overflow: 'hidden' }}>
           <View style={styles.media}>
-            <Image source={reporte.fotoUrl || FALLBACK_IMAGE} style={StyleSheet.absoluteFill} contentFit="cover" transition={250} />
+            <ReporteImage fotoUrl={reporte.fotoUrl} style={StyleSheet.absoluteFill} />
             <LinearGradient colors={['transparent', 'rgba(0,0,0,0.4)']} locations={[0.45, 1]} style={StyleSheet.absoluteFill} />
           </View>
           <View style={{ padding: spacing.xl, gap: spacing.lg }}>

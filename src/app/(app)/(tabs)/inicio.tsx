@@ -51,8 +51,8 @@ export default function DashboardScreen() {
           ) : (
             <View style={styles.grid}>
               <StatCard style={styles.half} label="Mis reportes" value={reportes.length} icon="file-text" tone="accent" />
-              <StatCard style={styles.half} label="Pendientes" value={count(reportes, 'PENDIENTE')} icon="alert-circle" tone="warning" />
-              <StatCard style={styles.half} label="En progreso" value={count(reportes, 'EN_PROGRESO')} icon="clock" tone="info" />
+              <StatCard style={styles.half} label="Reportados" value={count(reportes, 'REPORTADO')} icon="alert-circle" tone="warning" />
+              <StatCard style={styles.half} label="En proceso" value={count(reportes, 'EN_PROCESO')} icon="clock" tone="info" />
               <StatCard style={styles.half} label="Resueltos" value={count(reportes, 'RESUELTO')} icon="check-circle" tone="success" />
             </View>
           )}
@@ -61,7 +61,7 @@ export default function DashboardScreen() {
         <View>
           <SectionTitle title="Comunidad" />
           <View style={{ gap: spacing.md }}>
-            <StatCard label="Pendientes globales" value={count(pub.data, 'PENDIENTE')} icon="trending-up" tone="accent" />
+            <StatCard label="Reportados globales" value={count(pub.data, 'REPORTADO')} icon="trending-up" tone="accent" />
             <StatCard label="Resueltos globales" value={count(pub.data, 'RESUELTO')} icon="check-circle" tone="success" />
           </View>
         </View>

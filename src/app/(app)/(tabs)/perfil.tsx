@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Text } from '../../../components/AppText';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Screen } from '../../../components/Screen';
@@ -104,7 +105,7 @@ export default function PerfilScreen() {
               mis.data.map((r) => (
                 <Pressable key={r.id} onPress={() => router.push(`/reportes/${r.id}`)} style={({ pressed }) => [styles.row, pressed && { borderColor: alpha(colors.accent, 0.5) }]}>
                   <View style={{ flex: 1, gap: 6 }}>
-                    <Text style={styles.rowTitle} numberOfLines={1}>
+                    <Text style={styles.rowTitle} numberOfLines={2}>
                       {r.titulo}
                     </Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>

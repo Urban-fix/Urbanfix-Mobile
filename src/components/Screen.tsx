@@ -32,7 +32,8 @@ export const Screen: React.FC<ScreenProps> = ({ title, subtitle, action, back, c
         </Pressable>
       )}
       <View style={{ flex: 1 }}>
-        <Heading size={28} numberOfLines={2}>
+        {/* Títulos largos (p. ej. el de un reporte) usan letra más chica para no cortarse */}
+        <Heading size={title.length > 18 ? 22 : 28} numberOfLines={3}>
           {title}
         </Heading>
         {subtitle && (
