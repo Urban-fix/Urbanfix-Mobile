@@ -62,7 +62,7 @@
       ]
     ],
     "extra": {
-      "apiUrl": "http://localhost:8080"
+      "apiUrl": "https://urbanfix-backend-azxr7d-a112d1-100-52-237-145.sslip.io"
     }
   }
 }

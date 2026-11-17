@@ -14,7 +14,7 @@ import type { EstadoReporte } from '../types/reporte.types';
 export const API_URL: string =
   process.env.EXPO_PUBLIC_API_URL ??
   (Constants.expoConfig?.extra?.apiUrl as string | undefined) ??
-  'http://localhost:8080';
+  'https://urbanfix-backend-azxr7d-a112d1-100-52-237-145.sslip.io';
 
 export const ESTADOS_REPORTE = {
   PENDIENTE: 'PENDIENTE',

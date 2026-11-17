@@ -10,11 +10,14 @@ Versión móvil de UrbanFix para iOS y Android, con el mismo diseño del fronten
 
 ```bash
 npm install
-cp .env.example .env      # pon la IP de tu PC donde corre el backend
 npx expo start            # escanea el QR con Expo Go o pulsa a / i
 ```
 
-> En el celular `localhost` es el propio celular: usa la IP de tu PC en la red
+Por defecto la app usa el backend desplegado:
+`https://urbanfix-backend-azxr7d-a112d1-100-52-237-145.sslip.io`
+
+Para usar otro backend, copia `.env.example` a `.env` y cambia `EXPO_PUBLIC_API_URL`.
+> Si es un backend local, en el celular `localhost` es el propio celular: usa la IP de tu PC en la red
 > (o `10.0.2.2` en el emulador de Android). El backend debe escuchar en `0.0.0.0`.
 
 ## Pantallas
