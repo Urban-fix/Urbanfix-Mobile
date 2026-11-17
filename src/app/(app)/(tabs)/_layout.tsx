@@ -5,6 +5,8 @@ import { Feather } from '@expo/vector-icons';
 import { colors, fonts, radius } from '../../../theme/tokens';
 import type { IconName } from '../../../components/ui';
 
+export const unstable_settings = { initialRouteName: 'inicio' };
+
 const icon =
   (name: IconName) =>
   ({ color }: { color: ColorValue }) => <Feather name={name} size={21} color={color as string} />;
@@ -22,7 +24,7 @@ export default function TabsLayout() {
         sceneStyle: { backgroundColor: colors.bg },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: 'Inicio', tabBarIcon: icon('home') }} />
+      <Tabs.Screen name="inicio" options={{ title: 'Inicio', tabBarIcon: icon('home') }} />
       <Tabs.Screen name="informes" options={{ title: 'Informes', tabBarIcon: icon('file-text') }} />
       <Tabs.Screen
         name="crear"

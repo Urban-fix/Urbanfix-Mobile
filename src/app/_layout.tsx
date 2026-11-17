@@ -24,6 +24,8 @@ function RootNavigator() {
 
   return (
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg }, animation: 'slide_from_right' }}>
+      {/* "/" redirige a /login o /inicio según la sesión */}
+      <Stack.Screen name="index" />
       {/* Igual que PrivateRoute en el web: sin sesión solo se ve (auth) */}
       <Stack.Protected guard={!isAuthenticated}>
         <Stack.Screen name="(auth)" />
