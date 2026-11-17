@@ -18,6 +18,8 @@ export const authApi = {
   login: (email: string, password: string) =>
     api.post<AuthResponseDTO>('/api/v1/auth/login', { email, password }),
   register: (data: RegisterRequestDTO) => api.post<AuthResponseDTO>('/api/v1/auth/register', data),
+  /** Mismo endpoint que usa el web: el backend valida el idToken de Google y devuelve la sesión. */
+  google: (idToken: string) => api.post<AuthResponseDTO>('/api/v1/auth/google', { idToken }),
   me: () => api.get<UsuarioResponseDTO>('/api/v1/auth/me'),
   logout: () => api.post('/api/v1/auth/logout'),
   requestPasswordReset: (email: string) => api.post('/api/v1/auth/password-reset/request', { email }),

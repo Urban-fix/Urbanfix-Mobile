@@ -2,6 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { authApi } from '../api/endpoints';
 import { setOnSessionExpired } from '../api/client';
 import { tokenStorage } from '../api/tokenStorage';
+import { googleSignOut } from '../auth/googleSignIn';
 import type { AuthResponseDTO, RegisterRequestDTO, UsuarioResponseDTO } from '../types/auth.types';
 
 interface AuthContextType {
@@ -10,6 +11,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<UsuarioResponseDTO>;
   register: (data: RegisterRequestDTO) => Promise<UsuarioResponseDTO>;
+  googleLogin: (idToken: string) => Promise<UsuarioResponseDTO>;
   logout: () => Promise<void>;
 }
 
@@ -51,6 +53,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     [handleAuth],
   );
 
+  const googleLogin = useCallback(async (idToken: string) => handleAuth((await authApi.google(idToken)).data), [handleAuth]);
+
   const logout = useCallback(async () => {
     try {
       await authApi.logout();
@@ -58,12 +62,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // aunque falle en el servidor, cerramos la sesión local
     } finally {
       await tokenStorage.clear();
+      await googleSignOut();
       setUser(null);
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, register, googleLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

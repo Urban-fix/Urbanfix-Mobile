@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import { AuthLayout } from '../../components/AuthLayout';
+import { GoogleButton } from '../../components/GoogleButton';
 import { Body, Button, Input, LinkText } from '../../components/ui';
 import { useToast } from '../../components/Toast';
 import { useAuth } from '../../context/AuthContext';
@@ -45,6 +46,7 @@ export default function RegisterScreen() {
 
   return (
     <AuthLayout title="Crea Tu Cuenta" subtitle="Únete a UrbanFix para reportar problemas urbanos" compactVisual>
+      <GoogleButton successMessage="Registro con Google exitoso" errorFallback="Error al registrarse con Google" />
       <View style={{ gap: spacing.md, marginBottom: spacing.lg }}>
         <View style={{ flexDirection: 'row', gap: spacing.md }}>
           <View style={{ flex: 1 }}>

@@ -86,6 +86,21 @@ dirección fija (Elastic IP o dominio propio).
 Los mapas usan **OpenStreetMap con Leaflet**, igual que el frontend web (dentro de un WebView).
 No necesitan API key ni cuenta de Google; solo conexión a internet.
 
+## Login con Google
+
+El botón "Continuar con Google" pide un `idToken` a Google y lo envía a `POST /api/v1/auth/google`
+(el mismo endpoint y formato que usa el frontend web). El backend valida el token y devuelve la sesión.
+
+- **No funciona dentro de Expo Go** (usa un módulo nativo): pruébalo en el APK (`eas build --profile preview`).
+- Configuración en [Google Cloud Console](https://console.cloud.google.com/) → APIs y servicios → Credenciales
+  (no requiere facturación):
+  1. **Web Client ID**: usa el mismo del frontend web (`VITE_GOOGLE_CLIENT_ID`) y ponlo en
+     `app.json` → `expo.extra.googleWebClientId`.
+  2. **Cliente OAuth de Android**: crea uno con el paquete `pe.urbanfix.app` y la huella **SHA-1** que muestra
+     `eas credentials` (Android → Keystore). Sin este cliente, Google responde `DEVELOPER_ERROR`.
+  3. **iOS (opcional)**: crea un cliente OAuth de iOS con el bundle `pe.urbanfix.app`, pon su Client ID en
+     `expo.extra.googleIosClientId` y su "iOS URL scheme" en la variable de EAS `GOOGLE_IOS_URL_SCHEME`.
+
 ## Notas
 
 

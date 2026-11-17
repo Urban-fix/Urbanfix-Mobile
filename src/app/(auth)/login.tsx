@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import { AuthLayout } from '../../components/AuthLayout';
+import { GoogleButton } from '../../components/GoogleButton';
 import { Body, Button, Input, LinkText } from '../../components/ui';
 import { useToast } from '../../components/Toast';
 import { useAuth } from '../../context/AuthContext';
@@ -41,6 +42,7 @@ export default function LoginScreen() {
 
   return (
     <AuthLayout title="Inicia Sesión" subtitle="Ingresa tus credenciales para acceder">
+      <GoogleButton successMessage="Login con Google exitoso" errorFallback="Error al iniciar sesión con Google" />
       <View style={{ gap: spacing.md }}>
         <Input label="Email" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" autoComplete="email" error={errors.email} />
         <Input label="Contraseña" value={password} onChangeText={setPassword} secureTextEntry autoComplete="password" error={errors.password} onSubmitEditing={onSubmit} />
