@@ -8,10 +8,14 @@ import { useToast } from './Toast';
 import { Divider } from './ui';
 
 /**
- * Botón "Continuar con Google" + separador "o continúa con",
+ * Botón "Continuar con Google" + separador ("o continúa con" / "o regístrate con"),
  * en el mismo lugar que el web (arriba del formulario).
  */
-export const GoogleButton: React.FC<{ successMessage: string; errorFallback: string }> = ({ successMessage, errorFallback }) => {
+export const GoogleButton: React.FC<{ successMessage: string; errorFallback: string; dividerLabel?: string }> = ({
+  successMessage,
+  errorFallback,
+  dividerLabel = 'o continúa con',
+}) => {
   const { googleLogin } = useAuth();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
@@ -49,7 +53,7 @@ export const GoogleButton: React.FC<{ successMessage: string; errorFallback: str
           </>
         )}
       </Pressable>
-      <Divider label="o continúa con" style={{ marginVertical: spacing.xl }} />
+      <Divider label={dividerLabel} style={{ marginVertical: spacing.xl }} />
     </View>
   );
 };

@@ -46,7 +46,7 @@ export default function RegisterScreen() {
 
   return (
     <AuthLayout title="Crea Tu Cuenta" subtitle="Únete a UrbanFix para reportar problemas urbanos" compactVisual>
-      <GoogleButton successMessage="Registro con Google exitoso" errorFallback="Error al registrarse con Google" />
+      <GoogleButton successMessage="Registro con Google exitoso" errorFallback="Error al registrarse con Google" dividerLabel="o regístrate con" />
       <View style={{ gap: spacing.md, marginBottom: spacing.lg }}>
         <View style={{ flexDirection: 'row', gap: spacing.md }}>
           <View style={{ flex: 1 }}>
