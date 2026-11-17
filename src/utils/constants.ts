@@ -40,9 +40,4 @@ export const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=1000&q=80';
 
 /** Centro por defecto del mapa: Lima. */
-export const DEFAULT_REGION = {
-  latitude: -12.0464,
-  longitude: -77.0428,
-  latitudeDelta: 0.12,
-  longitudeDelta: 0.12,
-};
+export const DEFAULT_CENTER = { lat: -12.0464, lng: -77.0428 };

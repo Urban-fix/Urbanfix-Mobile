@@ -1,14 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { MapView, Marker } from '../../../components/Map';
+import { LeafletMap } from '../../../components/map/LeafletMap';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Chip, ErrorBanner, Heading, StatusBadge } from '../../../components/ui';
-import { darkMapStyle } from '../../../components/mapStyle';
 import { useReportesPublic } from '../../../hooks/useData';
-import { DEFAULT_REGION, ESTADO_COLOR, ESTADOS_REPORTE, FALLBACK_IMAGE, estadoLabel } from '../../../utils/constants';
+import { DEFAULT_CENTER, ESTADO_COLOR, ESTADOS_REPORTE, FALLBACK_IMAGE, estadoLabel } from '../../../utils/constants';
 import { alpha, colors, fonts, radius, shadow, spacing } from '../../../theme/tokens';
 import type { ReportePublicDTO } from '../../../types/reporte.types';
 
@@ -23,22 +22,19 @@ export default function MapaScreen() {
     () => data.filter((r) => Number.isFinite(r.latitud) && Number.isFinite(r.longitud) && (!estado || r.estadoActual === estado)),
     [data, estado],
   );
+  const markers = useMemo(() => reportes.map((r) => ({ id: r.id, lat: r.latitud, lng: r.longitud, color: ESTADO_COLOR[r.estadoActual] })), [reportes]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
-      <MapView style={StyleSheet.absoluteFill} initialRegion={DEFAULT_REGION} customMapStyle={darkMapStyle} onPress={() => setSelected(null)} showsUserLocation>
-        {reportes.map((r) => (
-          <Marker
-            key={r.id}
-            coordinate={{ latitude: r.latitud, longitude: r.longitud }}
-            pinColor={ESTADO_COLOR[r.estadoActual]}
-            onPress={(e) => {
-              e.stopPropagation();
-              setSelected(r);
-            }}
-          />
-        ))}
-      </MapView>
+      <LeafletMap
+        style={StyleSheet.absoluteFill}
+        initialCenter={DEFAULT_CENTER}
+        initialZoom={12}
+        markers={markers}
+        selectedId={selected?.id ?? null}
+        onPress={() => setSelected(null)}
+        onMarkerPress={(id) => setSelected(reportes.find((r) => r.id === id) ?? null)}
+      />
 
       <SafeAreaView edges={['top']} style={styles.top} pointerEvents="box-none">
         <View style={styles.toolbar}>
@@ -98,7 +94,7 @@ const styles = StyleSheet.create({
   top: { position: 'absolute', top: 0, left: 0, right: 0, gap: spacing.sm },
   toolbar: { ...panel, marginHorizontal: spacing.gutter, marginTop: spacing.sm, paddingHorizontal: spacing.lg, paddingVertical: spacing.md, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   count: { color: colors.textMuted, fontFamily: fonts.body, fontSize: 13 },
-  legend: { ...panel, position: 'absolute', left: spacing.md, bottom: spacing.md, flexDirection: 'row', flexWrap: 'wrap', gap: 10, padding: 10, maxWidth: '92%' },
+  legend: { ...panel, position: 'absolute', left: spacing.md, bottom: spacing.md, flexDirection: 'row', flexWrap: 'wrap', gap: 10, padding: 10, maxWidth: '72%' },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   swatch: { width: 10, height: 10, borderRadius: 5, borderWidth: 1, borderColor: colors.bg },
   legendText: { color: colors.textSecondary, fontFamily: fonts.body, fontSize: 11, textTransform: 'uppercase' },

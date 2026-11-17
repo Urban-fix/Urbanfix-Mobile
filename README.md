@@ -65,14 +65,7 @@ Se compila en la nube con [EAS Build](https://docs.expo.dev/build/introduction/)
    ```bash
    eas init
    ```
-3. Configura la API key de Google Maps (sin ella el mapa sale en blanco en el APK):
-   - En [Google Cloud Console](https://console.cloud.google.com/) habilita **Maps SDK for Android** y crea una API key.
-   - Restríngela a Android con el paquete `pe.urbanfix.app` y la huella SHA-1 que muestra `eas credentials`.
-   - Guárdala en EAS (no va en el repo):
-     ```bash
-     eas env:create --name GOOGLE_MAPS_API_KEY --value TU_KEY --environment preview --environment production --visibility sensitive
-     ```
-4. Genera el APK:
+3. Genera el APK:
    ```bash
    eas build --platform android --profile preview
    ```
@@ -88,7 +81,12 @@ La URL queda guardada dentro del APK. Si el servidor cambia de dirección, hay q
 `expo.extra.apiUrl` en `app.json` y volver a generar el APK. Para evitarlo, el backend debe tener una
 dirección fija (Elastic IP o dominio propio).
 
+## Mapa
+
+Los mapas usan **OpenStreetMap con Leaflet**, igual que el frontend web (dentro de un WebView).
+No necesitan API key ni cuenta de Google; solo conexión a internet.
+
 ## Notas
 
 
-- En web el mapa se muestra como un placeholder (`Map.web.tsx`); la app está pensada para iOS/Android.
+- La app está pensada para iOS/Android; la versión web solo sirve para revisar pantallas (ahí el mapa va en un iframe).

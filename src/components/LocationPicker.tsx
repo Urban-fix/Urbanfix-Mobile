@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { MapView, Marker, type MapPressEvent, type Region } from './Map';
 import * as Location from 'expo-location';
 import { alpha, colors, fonts, radius } from '../theme/tokens';
-import { DEFAULT_REGION } from '../utils/constants';
-import { darkMapStyle } from './mapStyle';
+import { DEFAULT_CENTER } from '../utils/constants';
+import { LeafletMap } from './map/LeafletMap';
+import type { LeafletMapHandle } from './map/types';
 import { Button } from './ui';
 
 export interface Coords {
@@ -12,18 +12,14 @@ export interface Coords {
   lng: number;
 }
 
-/** Equivalente del LocationMapPicker web: toca el mapa o usa el GPS. */
+/** Equivalente del LocationMapPicker web (OpenStreetMap): toca el mapa o usa el GPS. */
 export const LocationPicker: React.FC<{ value: Coords | null; onChange: (c: Coords) => void; error?: string }> = ({ value, onChange, error }) => {
-  const mapRef = useRef<MapView>(null);
+  const mapRef = useRef<LeafletMapHandle>(null);
   const [locating, setLocating] = useState(false);
   const [gpsError, setGpsError] = useState<string | null>(null);
+  const [initial] = useState(() => (value ? { center: value, zoom: 16 } : { center: DEFAULT_CENTER, zoom: 12 }));
 
-  const initial: Region = value ? { latitude: value.lat, longitude: value.lng, latitudeDelta: 0.01, longitudeDelta: 0.01 } : DEFAULT_REGION;
-
-  const onPress = (e: MapPressEvent) => {
-    const { latitude, longitude } = e.nativeEvent.coordinate;
-    onChange({ lat: latitude, lng: longitude });
-  };
+  const markers = useMemo(() => (value ? [{ id: 'sel', lat: value.lat, lng: value.lng, color: colors.accent }] : []), [value]);
 
   const useMyLocation = async () => {
     setGpsError(null);
@@ -37,7 +33,7 @@ export const LocationPicker: React.FC<{ value: Coords | null; onChange: (c: Coor
       const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
       const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       onChange(c);
-      mapRef.current?.animateToRegion({ latitude: c.lat, longitude: c.lng, latitudeDelta: 0.008, longitudeDelta: 0.008 }, 500);
+      mapRef.current?.flyTo(c.lat, c.lng, 17);
     } catch {
       setGpsError('No se pudo obtener tu ubicación.');
     } finally {
@@ -49,9 +45,15 @@ export const LocationPicker: React.FC<{ value: Coords | null; onChange: (c: Coor
     <View>
       <Text style={styles.label}>Ubicación</Text>
       <View style={[styles.mapWrap, !!error && { borderColor: colors.error }]}>
-        <MapView ref={mapRef} style={StyleSheet.absoluteFill} initialRegion={initial} onPress={onPress} customMapStyle={darkMapStyle} showsUserLocation>
-          {value && <Marker coordinate={{ latitude: value.lat, longitude: value.lng }} pinColor={colors.accent} />}
-        </MapView>
+        <LeafletMap
+          ref={mapRef}
+          style={StyleSheet.absoluteFill}
+          initialCenter={initial.center}
+          initialZoom={initial.zoom}
+          markers={markers}
+          selectedId="sel"
+          onPress={onChange}
+        />
         {!value && (
           <View style={styles.banner} pointerEvents="none">
             <Text style={styles.bannerText}>Toca el mapa para marcar dónde está el problema</Text>
