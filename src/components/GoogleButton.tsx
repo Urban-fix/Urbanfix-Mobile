@@ -42,7 +42,7 @@ export const GoogleButton: React.FC<{ successMessage: string; errorFallback: str
         disabled={loading}
         accessibilityRole="button"
         accessibilityLabel="Continuar con Google"
-        style={({ pressed }) => [styles.btn, pressed && { backgroundColor: '#2a2a2a' }, loading && { opacity: 0.6 }]}
+        style={({ pressed }) => [styles.btn, pressed && { backgroundColor: '#1a2337' }, loading && { opacity: 0.6 }]}
       >
         {loading ? (
           <ActivityIndicator color={colors.text} />

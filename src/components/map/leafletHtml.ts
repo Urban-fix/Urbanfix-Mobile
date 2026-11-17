@@ -14,11 +14,11 @@ export const leafletHtml = (opts: { lat: number; lng: number; zoom: number }) =>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-  html, body, #map { margin: 0; padding: 0; height: 100%; width: 100%; background: #2B2B2B; }
+  html, body, #map { margin: 0; padding: 0; height: 100%; width: 100%; background: #1A2337; }
   .leaflet-control-attribution { font-size: 9px; }
-  .uf-pin { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #1A1A1A; box-shadow: 0 0 0 2px rgba(255,255,255,0.85), 0 3px 8px rgba(0,0,0,0.45); }
+  .uf-pin { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #0F172A; box-shadow: 0 0 0 2px rgba(255,255,255,0.85), 0 3px 8px rgba(0,0,0,0.45); }
   .uf-pin.sel { width: 24px; height: 24px; }
-  .uf-offline { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #A8A8A4; font: 13px sans-serif; text-align: center; padding: 16px; }
+  .uf-offline { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #9DA8B7; font: 13px sans-serif; text-align: center; padding: 16px; }
 </style>
 </head>
 <body>

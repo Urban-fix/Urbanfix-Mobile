@@ -1,32 +1,32 @@
 /**
  * Tokens de diseño de UrbanFix.
  * Copiados 1:1 de `src/index.css` (@theme) del frontend web para mantener
- * el mismo look: fondo carbón, superficies grises y acento lima.
+ * el mismo look: fondo azul marino, superficies pizarra y acento azul #0B63FF.
  */
 export const colors = {
-  bg: '#1A1A1A',
-  surface: '#2B2B2B',
-  surface2: '#363636',
-  line: '#4A4A4A',
+  bg: '#0F172A',
+  surface: '#1A2337',
+  surface2: '#232D40',
+  line: '#334155',
 
-  text: '#F2F2F0',
-  textSecondary: '#C9C9C4',
-  textMuted: '#A8A8A4',
+  text: '#E2E8F0',
+  textSecondary: '#CBD5E1',
+  textMuted: '#9DA8B7',
 
-  accent: '#D4F58C',
-  accentHover: '#E3FFA6',
-  accentActive: '#C6F56B',
-  accentGlow: '#EAFFB0',
-  onAccent: '#1A1A1A',
+  accent: '#0B63FF',
+  accentHover: '#2B77FD',
+  accentActive: '#0952D6',
+  accentGlow: '#5B95FF',
+  onAccent: '#FFFFFF',
 
-  panelLight: '#D9D9D9',
-  onPanel: '#1A1A1A',
-  onPanelMuted: '#4A4A46',
+  panelLight: '#E2E8F0',
+  onPanel: '#0F172A',
+  onPanelMuted: '#475569',
 
-  success: '#D4F58C',
+  success: '#22C55E',
   warning: '#F2C14E',
   error: '#FF6B5E',
-  info: '#5B8FF9',
+  info: '#38BDF8',
 } as const;
 
 /** Mezcla un color hex con transparencia (equivalente a `bg-accent/15`). */

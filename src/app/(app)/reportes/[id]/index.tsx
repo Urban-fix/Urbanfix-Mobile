@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   inline: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   adminBox: { gap: spacing.md, paddingTop: spacing.lg, borderTopWidth: 1, borderTopColor: colors.line },
   comment: { flexDirection: 'row', gap: spacing.md, padding: spacing.md, borderRadius: radius, backgroundColor: colors.surface2, borderWidth: 1, borderColor: colors.line },
-  commentAvatar: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(212,245,140,0.12)' },
+  commentAvatar: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(11,99,255,0.12)' },
   commentName: { fontFamily: fonts.semibold, fontSize: 14, color: colors.text },
   commentDate: { fontFamily: fonts.body, fontSize: 11, color: colors.textMuted },
   timeline: { borderLeftWidth: 2, borderLeftColor: colors.accent, paddingLeft: spacing.lg },

@@ -13,9 +13,9 @@ export const AuthLayout: React.FC<{ title: string; subtitle?: string; children: 
   <View style={{ flex: 1, backgroundColor: colors.bg }}>
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" bounces={false}>
-        <LinearGradient colors={['#ecece8', '#d9d9d9', '#c8c8c2']} start={{ x: 0, y: 0 }} end={{ x: 0.6, y: 1 }} style={[styles.visual, compactVisual && { paddingBottom: 56 }]}>
+        <LinearGradient colors={['#f1f5f9', '#e2e8f0', '#cbd5e1']} start={{ x: 0, y: 0 }} end={{ x: 0.6, y: 1 }} style={[styles.visual, compactVisual && { paddingBottom: 56 }]}>
           {/* brillo lima del radial-gradient web */}
-          <LinearGradient colors={['rgba(212,245,140,0.55)', 'rgba(212,245,140,0)']} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 0.75 }} style={StyleSheet.absoluteFill} />
+          <LinearGradient colors={['rgba(11,99,255,0.55)', 'rgba(11,99,255,0)']} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 0.75 }} style={StyleSheet.absoluteFill} />
           <SafeAreaView edges={['top']} style={{ alignItems: 'center' }}>
             <Text style={styles.kicker}>UrbanFix</Text>
             <Text style={[styles.big, compactVisual && { fontSize: 38, lineHeight: 38 }]}>
@@ -27,7 +27,7 @@ export const AuthLayout: React.FC<{ title: string; subtitle?: string; children: 
 
         <View style={styles.cardWrap}>
           <View style={styles.card}>
-            <Heading size={30} style={{ textAlign: 'center', marginBottom: 6, textShadowColor: 'rgba(212,245,140,0.3)', textShadowRadius: 20 }}>
+            <Heading size={30} style={{ textAlign: 'center', marginBottom: 6, textShadowColor: 'rgba(11,99,255,0.3)', textShadowRadius: 20 }}>
               {title}
             </Heading>
             {subtitle && (
