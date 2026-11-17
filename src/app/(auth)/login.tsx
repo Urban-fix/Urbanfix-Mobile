@@ -21,8 +21,9 @@ export default function LoginScreen() {
 
   const onSubmit = async () => {
     const e: typeof errors = {};
-    if (!email) e.email = 'Email es requerido';
-    else if (!EMAIL_RE.test(email)) e.email = 'Email inválido';
+    const correo = email.trim(); // el teclado del celular suele dejar un espacio al final
+    if (!correo) e.email = 'Email es requerido';
+    else if (!EMAIL_RE.test(correo)) e.email = 'Email inválido';
     if (!password) e.password = 'Contraseña es requerida';
     else if (password.length < 8) e.password = 'Mínimo 8 caracteres';
     setErrors(e);
@@ -30,7 +31,7 @@ export default function LoginScreen() {
 
     setLoading(true);
     try {
-      await login(email.trim(), password);
+      await login(correo, password);
       toast.success('Login exitoso');
       // La redirección la hace Stack.Protected al cambiar isAuthenticated
     } catch (err) {
